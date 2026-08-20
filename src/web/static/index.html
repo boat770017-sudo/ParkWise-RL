@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkWise-RL</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div>
+            <h1><span>P</span>arkWise-RL</h1>
+            <div class="subtitle">Reinforcement Learning Parking Allocation</div>
+        </div>
+        <div class="controls">
+            <label>Slots
+                <select id="sel-slots">
+                    <option value="6">6</option>
+                    <option value="12" selected>12</option>
+                    <option value="20">20</option>
+                </select>
+            </label>
+            <label>Agent
+                <select id="sel-agent">
+                    <option value="Nearest-Slot">Nearest-Slot</option>
+                    <option value="FCFS">FCFS</option>
+                    <option value="Q-Learning">Q-Learning</option>
+                    <option value="DQN">DQN</option>
+                </select>
+            </label>
+            <label>Speed
+                <input type="range" id="rng-speed" min="1" max="20" value="5" style="width:80px">
+            </label>
+            <button class="btn btn-outline" id="btn-reset">Reset</button>
+            <button class="btn btn-primary" id="btn-step">Step</button>
+            <button class="btn btn-run" id="btn-run">Run Day</button>
+        </div>
+    </header>
+
+    <div class="main-grid">
+        <div class="sim-area">
+            <div class="canvas-wrap">
+                <canvas id="sim-canvas"></canvas>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="panel">
+                <div class="panel-title">Live Statistics</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Step</div>
+                        <div class="value blue" id="st-step">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Reward</div>
+                        <div class="value green" id="st-reward">0.0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Allocated</div>
+                        <div class="value cyan" id="st-allocated">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Rejected</div>
+                        <div class="value red" id="st-rejected">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Queue</div>
+                        <div class="value yellow" id="st-queue">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Occupancy</div>
+                        <div class="value purple" id="st-occupancy">0%</div>
+                    </div>
+                </div>
+                <div class="occupancy-bar"><div class="fill" id="occ-fill" style="width:0%"></div></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Incoming Vehicle</div>
+                <div id="vehicle-box"><div class="no-vehicle">No vehicle waiting</div></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Last Action</div>
+                <div id="action-box" style="font-size:13px;color:var(--text-muted)">-</div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Charts</div>
+                <div class="chart-wrap"><canvas id="chart-reward"></canvas></div>
+                <div style="height:8px"></div>
+                <div class="chart-wrap"><canvas id="chart-occupancy"></canvas></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Legend</div>
+                <div class="legend-grid">
+                    <div class="legend-item"><div class="legend-swatch" style="background:#94a3b8"></div>Regular</div>
+                    <div class="legend-item"><div class="legend-swatch" style="background:#22d3ee"></div>EV Charging</div>
+                    <div class="legend-item"><div class="legend-swatch" style="background:#a78bfa"></div>Reserved</div>
+                    <div class="legend-item"><div class="legend-swatch" style="background:#fbbf24"></div>Handicapped</div>
+                    <div class="legend-item"><div class="legend-swatch" style="background:#dc2626"></div>Occupied</div>
+                    <div class="legend-item"><div class="legend-swatch" style="background:#3b82f6"></div>Vehicle</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Event Log</div>
+                <div class="log-list" id="log-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
