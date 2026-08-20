@@ -1,10 +1,12 @@
 """Agent Comparison and Visual Evaluation Suite for ParkWise-RL."""
 
 import os
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from typing import List, Dict, Any, Tuple
+from typing import Dict, Any, Tuple
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from src.env.parking_env import ParkingEnv
 from src.agents.baseline_agent import NearestSlotAgent, FCFSAgent
@@ -17,7 +19,7 @@ def evaluate_agent(
     num_slots: int = 12,
     num_episodes: int = 20,
     base_seed: int = 1000
-) -> Tuple[Dict[str, float], List[np.ndarray]]:
+) -> Tuple[Dict[str, float], np.ndarray]:
     """Evaluate a single agent over fixed evaluation seeds."""
     agent_slots = getattr(agent, 'num_slots', num_slots)
     env = ParkingEnv(num_slots=agent_slots, max_steps=500)

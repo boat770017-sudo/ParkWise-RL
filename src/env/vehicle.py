@@ -20,12 +20,12 @@ class PoissonArrivalGenerator:
     """Simulates dynamic Poisson vehicle arrivals and duration sampling."""
     
     def __init__(self, seed: Optional[int] = None, base_lambda: float = BASE_ARRIVAL_RATE):
-        self.rng = np.random.RandomState(seed)
+        self.rng = np.random.default_rng(seed)
         self.base_lambda = base_lambda
         self.vehicle_counter = 0
 
     def seed(self, seed: Optional[int] = None):
-        self.rng = np.random.RandomState(seed)
+        self.rng = np.random.default_rng(seed)
         self.vehicle_counter = 0
 
     def _get_time_of_day_lambda(self, current_step: int, total_steps: int) -> float:

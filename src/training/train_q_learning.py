@@ -1,9 +1,11 @@
 """Training script for Tabular Q-Learning Agent on ParkingEnv."""
 
 import os
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from src.env.parking_env import ParkingEnv
 from src.agents.q_learning_agent import QLearningAgent
 from src.training.config import (

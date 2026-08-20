@@ -147,7 +147,8 @@ with col_btn3:
 def execute_step():
     obs = st.session_state.obs
     info = st.session_state.info
-    if hasattr(agent, 'select_action'):
+    import inspect
+    if 'eval_mode' in inspect.signature(agent.select_action).parameters:
         action = agent.select_action(obs, info, env, eval_mode=True)
     else:
         action = agent.select_action(obs, info, env)

@@ -1,8 +1,10 @@
 """Training script for Deep Q-Network (DQN) Agent on ParkingEnv."""
 
 import os
+import sys
 import numpy as np
 import pandas as pd
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from src.env.parking_env import ParkingEnv
 from src.agents.dqn_agent import DQNAgent
 from src.training.config import (
@@ -15,7 +17,7 @@ from src.training.config import (
 
 def train_dqn(
     num_slots: int = 12,
-    num_episodes: int = 300,
+    num_episodes: int = DQN_EPISODES,
     save_model_path: str = "models/dqn_model.pth",
     log_csv_path: str = "logs/dqn_training.csv"
 ) -> DQNAgent:

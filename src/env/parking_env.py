@@ -58,7 +58,7 @@ class ParkingEnv(gym.Env):
         # Gym spaces definition
         self.observation_space = spaces.Box(
             low=0.0,
-            high=100.0,
+            high=1.0,
             shape=(self.state_dim,),
             dtype=np.float32
         )
@@ -283,13 +283,13 @@ class ParkingEnv(gym.Env):
             veh_onehot[v_idx] = 1.0
         obs.extend(veh_onehot)
 
-        # 4. Distance to free compatible slots (N values)
+        # 4. Distance to free compatible slots (N values, normalized to [0, 1])
         distances = []
         for s in self.slots:
             if (not s.is_occupied) and incoming is not None and s.is_compatible_with(
                 incoming.vehicle_type, incoming.requires_ev, incoming.requires_handicapped
             ):
-                distances.append(float(s.distance_from_entrance))
+                distances.append(float(s.distance_from_entrance) / self.max_distance)
             else:
                 distances.append(0.0)
         obs.extend(distances)
